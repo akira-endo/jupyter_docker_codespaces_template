@@ -22,18 +22,21 @@ RUN conda install -c conda-forge jupyterlab-git -y && \
     jupyter lab build
 
 # Jupyter lab settings
+# Alt + Space to send the highlighted code to console
+# auto-close brackets + line numbers in notebooks and console
+# turn off autosave
 RUN printf ' { \
-    "@jupyterlab/shortcuts-extension:shortcuts": {   \ # Alt + Space to send the highlighted code to console
+    "@jupyterlab/shortcuts-extension:shortcuts": {   \ 
         "shortcuts":[{"command": "notebook:run-in-console", "keys": ["Alt Space"], "selector": ".jp-Notebook.jp-mod-editMode"}, \
                      {"command": "runmenu:run", "keys": ["Alt Space"], "selector": "[data-jp-code-runner]"}] \
     }, \
-    "@jupyterlab/notebook-extension:tracker": {  \ # auto-close brackets + line numbers in notebooks
-        "codeCellConfig": { "autoClosingBrackets": true, "lineNumbers": true }  \ 
+    "@jupyterlab/notebook-extension:tracker": {  \ 
+        "codeCellConfig": { "autoClosingBrackets": true, "lineNumbers": true }  \
     },   \
-    "@jupyterlab/console-extension:tracker": {   \ # auto-close brackets + line numbers in console
+    "@jupyterlab/console-extension:tracker": {   \
         "promptCellConfig": { "autoClosingBrackets": true, "lineNumbers": true }   \
     },  \
-    "@jupyterlab/docmanager-extension:plugin": {   \ # turn off autosave
+    "@jupyterlab/docmanager-extension:plugin": {   \ 
         "autosave": false   \
     }  \
 }' > /opt/conda/share/jupyter/lab/settings/overrides.json 
