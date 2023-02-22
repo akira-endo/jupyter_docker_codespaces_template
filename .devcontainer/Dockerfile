@@ -41,9 +41,9 @@ RUN printf ' { \
     }  \
 }' > /opt/conda/share/jupyter/lab/settings/overrides.json 
 
-# [Optional] Uncomment this section to add Julia packages specified by Project.toml to the image.
-# COPY Project.toml /tmp/julia-tmp
-# COPY Manifest.toml /tmp/julia-tmp
+# [Optional] If your Project.toml rarely change, uncomment this section to add them to the image.
+# COPY Project.toml /tmp/julia-tmp/
+# COPY Manifest.toml /tmp/julia-tmp/
 # RUN julia -e 'using Pkg; Pkg.activate("tmp/julia-tmp"); Pkg.instantiate()' \
 #    && rm -rf /tmp/julia-tmp
 
