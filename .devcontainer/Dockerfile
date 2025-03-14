@@ -2,7 +2,7 @@
 
 # Specify docker image from https://hub.docker.com/r/jupyter/datascience-notebook/tags.
 # Avoid :latest tag. Tags that includes both linux/amd64 and linux/arm64/v8 are recommended.
-FROM jupyter/datascience-notebook:2023-01-09
+FROM quay.io/jupyter/datascience-notebook:lab-4.2.0
 
 # We want to run common-debian.sh from here:
 # https://github.com/microsoft/vscode-dev-containers/tree/main/script-library#development-container-scripts
@@ -41,13 +41,19 @@ RUN printf ' { \
     }  \
 }' > /opt/conda/share/jupyter/lab/settings/overrides.json 
 
-# [Optional] If your Project.toml rarely change, uncomment this section to add them to the image.
+# [Optional: R] Add R packages specifying versions
+#RUN conda install -c conda-forge r-remotes=2.5.0
+#RUN R -e 'library(remotes) \
+# remotes::install_version("tidyverse", version = "2.0.0",repos = "https://cloud.r-project.org/") \
+# '
+
+# [Optional: Julia] If your Project.toml rarely change, uncomment this section to add them to the image.
 # COPY Project.toml /tmp/julia-tmp/
 # COPY Manifest.toml /tmp/julia-tmp/
 # RUN julia -e 'using Pkg; Pkg.activate("tmp/julia-tmp"); Pkg.instantiate()' \
 #    && rm -rf /tmp/julia-tmp
 
-# [Optional] If your pip requirements rarely change, uncomment this section to add them to the image.
+# [Optional: Python] If your pip requirements rarely change, uncomment this section to add them to the image.
 # COPY requirements.txt /tmp/pip-tmp/
 # RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
 #    && rm -rf /tmp/pip-tmp
